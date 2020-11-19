@@ -1,22 +1,46 @@
+<template>
+  <header
+    class="navbar navbar-expand-lg navbar-light
+  bg-light"
+  >
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav justify-content-center">
+        <li class="navbar-brand">
+          <router-link to="/">
+            Logo
+          </router-link>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/blog-post"
+            >Single Blog post</router-link
+          >
+        </li>
+      </ul>
+    </div>
+  </header>
+</template>
+
 <script>
-import Vue from 'vue';
-
-const TheNavbar = Vue.component('navbar-blog', {
-  template: '<header class="navbar">Navbar</header>',
-});
-
-export default TheNavbar;
+export default {
+  name: 'navbar-blog',
+};
 </script>
 
-<style>
-.navbar {
+<style scoped>
+.navbar,
+.navbar-collapse {
   height: 3rem;
   padding: 0.5rem;
-  background: #eaeaea;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  grid-column: 1/4;
 }
 </style>

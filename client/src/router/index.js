@@ -1,5 +1,5 @@
 import MainPage from '@/pages/MainPage';
-import SingleBlogPost from '@/pages/SingleBlogPost';
+import SingleBlogPostPage from '@/pages/SingleBlogPostPage';
 import Vue from 'vue';
 import Router from 'vue-router';
 
@@ -14,8 +14,8 @@ export default new Router({
     },
     {
       path: '/blog-post',
-      name: 'SingleBlogPost',
-      component: SingleBlogPost,
+      name: 'SingleBlogPostPage',
+      component: SingleBlogPostPage,
     },
   ],
 });
