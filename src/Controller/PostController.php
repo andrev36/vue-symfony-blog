@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Post;
 use Doctrine\ORM\EntityManagerInterface;
@@ -35,7 +36,7 @@ class PostController extends AbstractController
   return new Response('Saved new product with id ' . $post->getId());
  }
  /**
-  * @Route("/post/{id}", name="post_show")
+  * @Route("/api/post/{id}", name="post_show")
   */
  public function show(int $id): Response
  {
@@ -49,11 +50,19 @@ class PostController extends AbstractController
    );
   }
 
-  return new Response('Check out this great product: ' . $post->getTitle());
+  $serializer = $this->container->get('serializer');
 
-  // or render a template
-  // in the template, print things with {{ product.name }}
-  // return $this->render('product/show.html.twig',
-  // ['product' => $product]);
+  $jsonContent = $serializer->serialize($post, 'json');
+
+  return new Response($jsonContent);
+ }
+ /**
+  * @Route("/api/test", name="test_one")
+  */
+ public function testOne(): JsonResponse
+ {
+  $response = new JsonResponse(['data' => 123]);
+
+  return $response;
  }
 }

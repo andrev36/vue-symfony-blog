@@ -1,11 +1,15 @@
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import NotFoundPage from '@/pages/NotFoundPage';
 import MainPage from '@/pages/MainPage';
 import SingleBlogPostPage from '@/pages/SingleBlogPostPage';
-import Vue from 'vue';
-import Router from 'vue-router';
+import LoginPage from '@/pages/LoginPage';
+import RegisterPage from '@/pages/RegisterPage';
 
-Vue.use(Router);
+Vue.use(VueRouter);
 
-export default new Router({
+export default new VueRouter({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -17,5 +21,16 @@ export default new Router({
       name: 'SingleBlogPostPage',
       component: SingleBlogPostPage,
     },
+    {
+      path: '/login',
+      name: 'LoginPage',
+      component: LoginPage,
+    },
+    {
+      path: '/register',
+      name: 'RegisterPage',
+      component: RegisterPage,
+    },
+    { path: '*', component: NotFoundPage },
   ],
 });
