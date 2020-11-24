@@ -1,10 +1,11 @@
+import CreatePostForm from '@/pages/CreatePostForm';
+import LoginPage from '@/pages/LoginPage';
+import MainPage from '@/pages/MainPage';
+import NotFoundPage from '@/pages/NotFoundPage';
+import RegisterPage from '@/pages/RegisterPage';
+import SingleBlogPostPage from '@/pages/SingleBlogPostPage';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import NotFoundPage from '@/pages/NotFoundPage';
-import MainPage from '@/pages/MainPage';
-import SingleBlogPostPage from '@/pages/SingleBlogPostPage';
-import LoginPage from '@/pages/LoginPage';
-import RegisterPage from '@/pages/RegisterPage';
 
 Vue.use(VueRouter);
 
@@ -17,19 +18,20 @@ export default new VueRouter({
       component: MainPage,
     },
     {
-      path: '/blog-post',
-      name: 'SingleBlogPostPage',
+      path: '/blog-post/:id',
       component: SingleBlogPostPage,
     },
     {
       path: '/login',
-      name: 'LoginPage',
       component: LoginPage,
     },
     {
       path: '/register',
-      name: 'RegisterPage',
       component: RegisterPage,
+    },
+    {
+      path: '/create-post',
+      component: CreatePostForm,
     },
     { path: '*', component: NotFoundPage },
   ],

@@ -22,7 +22,7 @@
           </router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" to="/blog-post"
+          <router-link class="nav-link" to="/blog-post/5"
             >Single Blog post</router-link
           >
         </li>
@@ -31,6 +31,10 @@
         </li>
         <li class="nav-item">
           <router-link class="nav-link" to="/register">Register</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link"
+          to="/create-post">Create post</router-link>
         </li>
       </ul>
     </div>

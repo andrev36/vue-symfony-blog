@@ -24,16 +24,25 @@
         </div>
       </div>
       <main class="blog-grid">
-        <div class="blog-grid__item">
-          <h2 class="post-title">Lorem ipsum dolor sit.</h2>
-          <div class="post-thumbnail-container">
-            <img src="" alt="post image" class="post-thumbnail" />
+        <div v-if="posts">
+          <div class="blog-grid__item" v-for="post in posts" :key="post.id">
+            <h2 class="post-title">{{post.Title}}</h2>
+            <div class="post-thumbnail-container">
+              <img src="" alt="post image" class="post-thumbnail" />
+            </div>
+            <span class="post-description"></span>
+            <div>
+              <button class="view-post">
+                <router-link :to="`/blog-post/${post.id}`">
+                  View Post
+                </router-link>
+              </button>
+            </div>
           </div>
-          <span class="post-description"></span>
-          <div><button class="view-post">View Post</button></div>
         </div>
         <div class="blog-grid__item">2</div>
         <div class="blog-grid__item">3</div>
+        <div class="blog-grid__item">4</div>
         <div class="blog-grid__item">5</div>
         <div class="blog-grid__item">6</div>
       </main>
@@ -54,8 +63,26 @@ export default {
   },
   data() {
     return {
-      searchTerm: 'Search term',
+      searchTerm: '',
+      posts: {},
     };
+  },
+  created() {
+    this.fetchAllBlogPostsData();
+  },
+  methods: {
+    async fetchAllBlogPostsData() {
+      try {
+        const data2 = await fetch('https://127.0.0.1:8000/api/posts');
+        const body = await data2.json();
+        // eslint-disable-next-line no-console
+        console.log('body:', body);
+        this.posts = await body;
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.log('err:', err);
+      }
+    },
   },
 };
 </script>

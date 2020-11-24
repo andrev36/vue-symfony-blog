@@ -2,8 +2,6 @@
   <div class="main-page">
     <navbar-blog class="navbar" />
     <div class="main-page-grid">
-      <button @click="handleFetchTestData">click</button>
-      <button @click="handleFetchBlogPostData">click blog data</button>
       <main class="main-section">
         <img
           src="../assets/single-blog-post-main-picture.png"
@@ -11,7 +9,7 @@
           height="280px"
           width="380px"
         />
-        <h1>{{ msg }}</h1>
+        <h1>{{ post.Title }}</h1>
       </main>
       <aside class="left-sidebar">
         <h3>
@@ -26,43 +24,7 @@
       </aside>
       <article class="article">
         <section>
-          <span>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsa nihil
-            similique iste. Corrupti debitis possimus minus, vel atque, et,
-            cumque voluptatibus officia nostrum in optio ea magni amet
-            voluptatem quisquam. Lorem ipsum dolor sit, amet consectetur
-            adipisicing elit. Ipsa nihil similique iste. Corrupti debitis
-            possimus minus, vel atque, et, cumque voluptatibus officia nostrum
-            in optio ea magni amet voluptatem quisquam. Lorem ipsum dolor sit,
-            amet consectetur adipisicing elit. Ipsa nihil similique iste.
-            Corrupti debitis possimus minus, vel atque, et, cumque voluptatibus
-            officia nostrum in optio ea magni amet voluptatem quisquam. Lorem
-            ipsum dolor sit, amet consectetur adipisicing elit. Ipsa nihil
-            similique iste. Corrupti debitis possimus minus, vel atque, et,
-            cumque voluptatibus officia nostrum in optio ea magni amet
-            voluptatem quisquam. Lorem ipsum dolor sit, amet consectetur
-            adipisicing elit. Ipsa nihil similique iste. Corrupti debitis
-            possimus minus, vel atque, et, cumque voluptatibus officia nostrum
-            in optio ea magni amet voluptatem quisquam. Lorem ipsum dolor sit,
-            amet consectetur adipisicing elit. Ipsa nihil similique iste.
-            Corrupti debitis possimus minus, vel atque, et, cumque voluptatibus
-            officia nostrum in optio ea magni amet voluptatem quisquam. Lorem
-            ipsum dolor sit, amet consectetur adipisicing elit. Ipsa nihil
-            similique iste. Corrupti debitis possimus minus, vel atque, et,
-            cumque voluptatibus officia nostrum in optio ea magni amet
-            voluptatem quisquam. Lorem ipsum dolor sit, amet consectetur
-            adipisicing elit. Ipsa nihil similique iste. Corrupti debitis
-            possimus minus, vel atque, et, cumque voluptatibus officia nostrum
-            in optio ea magni amet voluptatem quisquam. Lorem ipsum dolor sit,
-            amet consectetur adipisicing elit. Ipsa nihil similique iste.
-            Corrupti debitis possimus minus, vel atque, et, cumque voluptatibus
-            officia nostrum in optio ea magni amet voluptatem quisquam. Lorem
-            ipsum dolor sit amet consectetur adipisicing elit. Labore
-            perspiciatis perferendis eius enim et commodi in ullam, dolorem,
-            distinctio incidunt nisi sint repellat explicabo odit dicta totam
-            facilis assumenda blanditiis error libero necessitatibus maiores
-            animi asperiores! Facere ea aliquam unde!
-          </span>
+          <span>{{ post.Body }} </span>
         </section>
       </article>
       <aside class="right-sidebar">
@@ -81,6 +43,7 @@
           necessitatibus odio illo.</span
         >
       </aside>
+      <comment-section />
       <footer-blog class="footer" />
     </div>
   </div>
@@ -89,36 +52,31 @@
 <script>
 import TheFooter from '../components/TheFooter/TheFooter';
 import TheNavbar from '../components/TheNavbar/TheNavbar';
+import CommentSection from '../components/CommentSection';
 
 export default {
   name: 'SingleBlogPostPage',
   components: {
     'footer-blog': TheFooter,
     'navbar-blog': TheNavbar,
+    'comment-section': CommentSection,
   },
   data() {
     return {
-      msg: 'Blog title',
+      post: {},
     };
   },
+  created() {
+    this.fetchBlogPostData();
+  },
   methods: {
-    async handleFetchTestData() {
+    async fetchBlogPostData() {
       try {
-        const data = await fetch('https://127.0.0.1:8000/api/test');
-        const body = await data.json();
+        const data2 = await fetch('https://127.0.0.1:8000/api/post/5');
+        const body = await data2.json();
         // eslint-disable-next-line no-console
         console.log('body:', body);
-      } catch (err) {
-        // eslint-disable-next-line no-console
-        console.log('err: ', err);
-      }
-    },
-    async handleFetchBlogPostData() {
-      try {
-        const data = await fetch('https://127.0.0.1:8000/api/post/5');
-        const body = await data.json();
-        // eslint-disable-next-line no-console
-        console.log('body:', body);
+        this.post = await body;
       } catch (err) {
         // eslint-disable-next-line no-console
         console.log('err: ', err);

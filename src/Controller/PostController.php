@@ -8,37 +8,43 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Post;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 class PostController extends AbstractController
 {
  /**
-  * @Route("/api/post", name="create_post")
+  * @Route("/api/post/create", name="create_single_post")
   */
- public function createPost(): Response
+ public function createPost(Request $request): JsonResponse
+ // public function createPost(Request $request): Response
  {
   // you can fetch the EntityManager via $this->getDoctrine()
   // or you can add an argument to the action: createPost(EntityManagerInterface $entityManager)
   $entityManager = $this->getDoctrine()->getManager();
 
-  $post = new Post();
-  $post->setTitle('First post title');
-  $post->setBody('Lorem ipsum dolor');
-  $post->setSlug('first-post-slug');
-  $post->setComment('First blog post comment');
-  $post->setTimestamp(new \DateTime("now"));
+  $data = json_decode($request->getContent(), true);
+
+  $newPost = new Post();
+  $newPost->setTitle($data['title']);
+  $newPost->setBody($data['content']);
+  $newPost->setSlug($data['slug']);
+  $newPost->setComment($data['comment']);
+  $newPost->setTimestamp(new \DateTime("now"));
 
   // tell Doctrine you want to (eventually) save the Post (no queries yet)
-  $entityManager->persist($post);
+  $entityManager->persist($newPost);
 
   // actually executes the queries (i.e. the INSERT query)
   $entityManager->flush();
 
-  return new Response('Saved new product with id ' . $post->getId());
+  return new JsonResponse([
+   'success' => true,
+  ]);
  }
  /**
-  * @Route("/api/post/{id}", name="post_show")
+  * @Route("/api/post/{id}", name="show_single_post")
   */
- public function show(int $id): Response
+ public function showSinglePost(int $id): Response
  {
   $post = $this->getDoctrine()
    ->getRepository(Post::class)
@@ -57,12 +63,24 @@ class PostController extends AbstractController
   return new Response($jsonContent);
  }
  /**
-  * @Route("/api/test", name="test_one")
+  * @Route("/api/posts", name="show_all_posts")
   */
- public function testOne(): JsonResponse
+ public function showAllPosts(): Response
  {
-  $response = new JsonResponse(['data' => 123]);
+  $posts = $this->getDoctrine()
+   ->getRepository(Post::class)
+   ->findAll();
 
-  return $response;
+  if (!$posts) {
+   throw $this->createNotFoundException(
+    'No posts found'
+   );
+  }
+
+  $serializer = $this->container->get('serializer');
+
+  $jsonContent = $serializer->serialize($posts, 'json');
+
+  return new Response($jsonContent);
  }
 }
