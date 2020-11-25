@@ -12,19 +12,21 @@ export default {
   data() {
     return {
       post: {},
+      routeId: 0,
     };
   },
   created() {
-    this.fetchBlogPostData2();
+    this.routeId = this.$route.params.id;
+    this.fetchBlogPostComment(this.routeId);
   },
   methods: {
-    async fetchBlogPostData2() {
+    async fetchBlogPostComment(id) {
       try {
-        const data2 = await fetch('https://127.0.0.1:8000/api/post/5');
-        const body = await data2.json();
+        const response = await fetch(`https://127.0.0.1:8000/api/post/${id}`);
+        const data = await response.json();
         // eslint-disable-next-line no-console
-        console.log('body:', body);
-        this.post = await body;
+        console.log('data:', data);
+        this.post = await data;
       } catch (err) {
         // eslint-disable-next-line no-console
         console.log('err: ', err);

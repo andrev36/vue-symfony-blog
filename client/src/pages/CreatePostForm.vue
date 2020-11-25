@@ -8,18 +8,19 @@
           <label for="title">Title</label>
           <input
             v-model="title"
-            type="title"
+            type="text"
             placeholder="Title"
             class="form-control"
           />
         </div>
         <div class="form-group">
           <label for="content">Content</label>
-          <input
+          <textarea
             v-model="content"
             type="text"
             placeholder="Content"
             class="form-control"
+            rows="3"
           />
         </div>
         <div class="form-group">
@@ -40,7 +41,7 @@
             class="form-control"
           />
         </div>
-        <button type="submit" class="btn btn-primary" >
+        <button type="submit" class="btn btn-primary">
           Submit
         </button>
       </form>
@@ -50,9 +51,6 @@
 
 <script>
 import TheNavbar from '../components/TheNavbar/TheNavbar';
-// import getStaticPath from '../utils/getStaticPath.utils';
-
-// const { staticPath, protocol } = getStaticPath();
 
 export default {
   name: 'create-post',
@@ -70,18 +68,31 @@ export default {
   methods: {
     async handleCreatePost() {
       try {
-        await fetch('https://127.0.0.1:8000/api/post/create', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: {
-            title: this.title,
-            content: this.content,
-            slug: this.slug,
-            comment: this.comment,
-          },
+        const exampleData = JSON.stringify({
+          title: this.title,
+          content: this.content,
+          slug: this.slug,
+          comment: this.comment,
         });
+        const dataFromFetchPost = await fetch(
+          'https://127.0.0.1:8000/api/post/create',
+          {
+            method: 'post',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              title: this.title,
+              content: this.content,
+              slug: this.slug,
+              comment: this.comment,
+            }),
+          },
+        );
+        const body = await dataFromFetchPost.json();
+        await console.log('body: ', body);
+        console.log('exampleData: ', exampleData);
       } catch (err) {
         // eslint-disable-next-line no-console
         console.log('err: ', err);
@@ -94,6 +105,7 @@ export default {
 <style scoped>
 .container-create-post-form {
   margin: 3rem auto;
+  padding-bottom: 3rem;
   display: flex;
   justify-content: center;
   align-items: center;

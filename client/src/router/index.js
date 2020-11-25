@@ -1,6 +1,7 @@
 import CreatePostForm from '@/pages/CreatePostForm';
 import LoginPage from '@/pages/LoginPage';
 import MainPage from '@/pages/MainPage';
+import NewsletterForm from '@/pages/NewsletterForm';
 import NotFoundPage from '@/pages/NotFoundPage';
 import RegisterPage from '@/pages/RegisterPage';
 import SingleBlogPostPage from '@/pages/SingleBlogPostPage';
@@ -32,6 +33,10 @@ export default new VueRouter({
     {
       path: '/create-post',
       component: CreatePostForm,
+    },
+    {
+      path: '/newsletter-form',
+      component: NewsletterForm,
     },
     { path: '*', component: NotFoundPage },
   ],

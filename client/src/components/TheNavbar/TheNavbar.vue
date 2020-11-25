@@ -36,6 +36,10 @@
           <router-link class="nav-link"
           to="/create-post">Create post</router-link>
         </li>
+        <li class="nav-item">
+          <router-link class="nav-link"
+          to="/newsletter-form">Newsletter</router-link>
+        </li>
       </ul>
     </div>
   </header>

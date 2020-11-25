@@ -16,7 +16,6 @@ class PostController extends AbstractController
   * @Route("/api/post/create", name="create_single_post")
   */
  public function createPost(Request $request): JsonResponse
- // public function createPost(Request $request): Response
  {
   // you can fetch the EntityManager via $this->getDoctrine()
   // or you can add an argument to the action: createPost(EntityManagerInterface $entityManager)
