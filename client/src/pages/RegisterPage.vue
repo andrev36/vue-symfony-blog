@@ -1,7 +1,7 @@
 <template>
-  <div class="single-blog-post-page">
+  <div class="register-page">
     <navbar-blog class="navbar">Navbar</navbar-blog>
-    <main class="container-login-form">
+    <main class="container-register-form">
       <form>
         <h1>Register</h1>
         <div class="form-group">
@@ -9,7 +9,6 @@
           <input
             type="email"
             class="form-control"
-            id="exampleInputEmail1"
             aria-describedby="emailHelp"
           />
         </div>
@@ -18,10 +17,15 @@
           <input
             type="password"
             class="form-control"
-            id="exampleInputPassword1"
           />
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          @click="handleRegisterSubmit"
+        >
+          Submit
+        </button>
       </form>
     </main>
   </div>
@@ -35,11 +39,36 @@ export default {
   components: {
     'navbar-blog': TheNavbar,
   },
+  data() {
+    return {
+      email: '',
+      password: '',
+    };
+  },
+  methods: {
+    async handleRegisterSubmit() {
+      try {
+        await fetch('https://127.0.0.1:8000/api/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: {
+            email: this.email,
+            password: this.password,
+          },
+        });
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.log('err: ', err);
+      }
+    },
+  },
 };
 </script>
 
 <style scoped>
-.container-login-form {
+.container-register-form {
   margin: 3rem auto;
   display: flex;
   justify-content: center;

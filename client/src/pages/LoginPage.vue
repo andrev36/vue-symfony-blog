@@ -1,5 +1,5 @@
 <template>
-  <div class="single-blog-post-page">
+  <div class="login-page">
     <navbar-blog class="navbar">Navbar</navbar-blog>
     <main class="container-login-form">
       <form>
@@ -37,9 +37,6 @@
 
 <script>
 import TheNavbar from '../components/TheNavbar/TheNavbar';
-import getStaticPath from '../utils/getStaticPath.utils';
-
-const { staticPath, protocol } = getStaticPath;
 
 export default {
   name: 'login-page',
@@ -50,20 +47,16 @@ export default {
     return {
       email: '',
       password: '',
+      csrf: '',
     };
   },
   methods: {
     async handleLoginSubmit() {
       try {
-        await fetch(`${protocol}://${staticPath}/api/login`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: {
-            email: this.email,
-            password: this.password,
-          },
+        await this.$store.dispatch('retrieveToken', {
+          email: this.email,
+          password: this.password,
+          csrf: this.csrf,
         });
       } catch (err) {
         // eslint-disable-next-line no-console

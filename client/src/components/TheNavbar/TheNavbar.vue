@@ -33,13 +33,18 @@
           <router-link class="nav-link" to="/register">Register</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link"
-          to="/create-post">Create post</router-link>
+          <router-link class="nav-link" to="/create-post"
+            >Create post</router-link
+          >
         </li>
         <li class="nav-item">
-          <router-link class="nav-link"
-          to="/newsletter-form">Newsletter</router-link>
+          <router-link class="nav-link" to="/newsletter-form"
+            >Newsletter</router-link
+          >
         </li>
+        <button class="nav-item btn" @click="logout">
+          Logout
+        </button>
       </ul>
     </div>
   </header>
@@ -48,6 +53,16 @@
 <script>
 export default {
   name: 'navbar-blog',
+  methods: {
+    logout() {
+      this.$store
+        .dispatch('destroyToken')
+        // eslint-disable-next-line no-unused-vars
+        .then((response) => {
+          this.$router.push({ name: 'MainPage' });
+        });
+    },
+  },
 };
 </script>
 

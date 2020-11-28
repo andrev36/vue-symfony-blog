@@ -20,22 +20,36 @@ export default new VueRouter({
     },
     {
       path: '/blog-post/:id',
+      name: 'SingleBlogPostPage',
       component: SingleBlogPostPage,
     },
     {
       path: '/login',
+      name: 'LoginPage',
       component: LoginPage,
+      meta: {
+        requiresVisitor: true,
+      },
     },
     {
       path: '/register',
+      name: 'RegisterPage',
       component: RegisterPage,
+      meta: {
+        requiresVisitor: true,
+      },
     },
     {
       path: '/create-post',
+      name: 'CreatePostForm',
       component: CreatePostForm,
+      meta: {
+        requiresAuth: true,
+      },
     },
     {
       path: '/newsletter-form',
+      name: 'NewsletterForm',
       component: NewsletterForm,
     },
     { path: '*', component: NotFoundPage },
