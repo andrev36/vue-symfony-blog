@@ -14,15 +14,15 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class NewsletterRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Newsletter::class);
-    }
+	public function __construct(ManagerRegistry $registry)
+	{
+		parent::__construct($registry, Newsletter::class);
+	}
 
-    // /**
-    //  * @return Newsletter[] Returns an array of Newsletter objects
-    //  */
-    /*
+	// /**
+	//  * @return Newsletter[] Returns an array of Newsletter objects
+	//  */
+	/*
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('n')
@@ -36,7 +36,7 @@ class NewsletterRepository extends ServiceEntityRepository
     }
     */
 
-    /*
+	/*
     public function findOneBySomeField($value): ?Newsletter
     {
         return $this->createQueryBuilder('n')

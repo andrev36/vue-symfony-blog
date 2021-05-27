@@ -11,47 +11,47 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
 export default new VueRouter({
-  mode: 'history',
-  routes: [
-    {
-      path: '/',
-      name: 'MainPage',
-      component: MainPage,
-    },
-    {
-      path: '/blog-post/:id',
-      name: 'SingleBlogPostPage',
-      component: SingleBlogPostPage,
-    },
-    {
-      path: '/login',
-      name: 'LoginPage',
-      component: LoginPage,
-      meta: {
-        requiresVisitor: true,
-      },
-    },
-    {
-      path: '/register',
-      name: 'RegisterPage',
-      component: RegisterPage,
-      meta: {
-        requiresVisitor: true,
-      },
-    },
-    {
-      path: '/create-post',
-      name: 'CreatePostForm',
-      component: CreatePostForm,
-      meta: {
-        requiresAuth: true,
-      },
-    },
-    {
-      path: '/newsletter-form',
-      name: 'NewsletterForm',
-      component: NewsletterForm,
-    },
-    { path: '*', component: NotFoundPage },
-  ],
+	mode: 'history',
+	routes: [
+		{
+			path: '/',
+			name: 'MainPage',
+			component: MainPage
+		},
+		{
+			path: '/blog-post/:id',
+			name: 'SingleBlogPostPage',
+			component: SingleBlogPostPage
+		},
+		{
+			path: '/login',
+			name: 'LoginPage',
+			component: LoginPage,
+			meta: {
+				requiresVisitor: true
+			}
+		},
+		{
+			path: '/register',
+			name: 'RegisterPage',
+			component: RegisterPage,
+			meta: {
+				requiresVisitor: true
+			}
+		},
+		{
+			path: '/create-post',
+			name: 'CreatePostForm',
+			component: CreatePostForm,
+			meta: {
+				requiresAuth: true
+			}
+		},
+		{
+			path: '/newsletter-form',
+			name: 'NewsletterForm',
+			component: NewsletterForm
+		},
+		{path: '*', component: NotFoundPage}
+	]
 });
